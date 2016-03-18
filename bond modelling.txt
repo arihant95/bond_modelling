@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
+#include<math.h>
+int main()
+{
+    float fv,cpn,nc,nd;
+    int f,i=0;
+    printf("Please enter face value of coupon\n");
+    scanf("%f",&fv);
+    printf("Please enter the coupon rate\n");
+    scanf("%f",&cpn);
+    printf("Please enter no of days till next coupon\n");
+    scanf("%f",&nd);
+    printf("Please enter no of coupon\n");
+    scanf("%f",&nc);
+    printf("Please enter frequency\n");
+    scanf("%d",&f);
+    float y[2000];
+    FILE*ff=fopen("Book2.txt","r");
+    while (!feof(ff)){
+        fscanf(ff,"%f",&y[i]);
+     
+        i++;
+    }
+    fclose(ff);
+    float w=nd/(360/f);
+    int a=52/f;
+    int m=nd/7;
+    float price=0,yi;
+    float c=cpn*fv/f;
+    for(i=1;i<nc;i++)
+    {
+    	yi=y[(m+(i-1)*a)]/(100*f);
+    	price=price+(c/pow((1+yi),(w+i-1)));
+    }
+    price=price+((fv)/pow((1+yi),(w+i-1)));
+	printf("Price:%f",price);
+    
+    
+    return (0);
+}
